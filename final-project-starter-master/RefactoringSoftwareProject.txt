@@ -1,0 +1,71 @@
+Refactoring changes:
+
+1. Class AndFilter and OrFilter have a method extraction where several lines of code 
+are extracted into the method joinLists() for readability and also modularity(since method is used in both AndFilter and OrFilter)
+
+2.Deleted getWord() method from BasicFilter since it has the exact same function as toString() of BasicFilter
+and replaced its usages with toString()
+
+3. In BasicFilter, I changed the method terms wich returns a list of Strings from a 3 line method to a single line method
+by directly returning the word as a list instead of creating an unneccessary list and adding the word to it and then
+returning it
+
+4. Refactor of Filter object in line 45 of Parser clas from "ans" to "filter" for readability and understanding
+
+5. In class Scanner, the peek() and advance() methods are virtually the same, except, in the case of advance(),
+we remove the first token first. So I removed the duplicated return statement from advance and called the peek() method for reusability
+
+6. (Not Refactoring) Implemented the terminate method in Query class, so that when you close one of the queries, its found tweets get removed from the map
+Unfortunately, since I remove them by setVisible(false) and I add the tool tip by hover its coordinates, the tweets still show up if you hover over their previous 
+coordinates 
+
+7. Created class TwitterAPIAuth using the Singleton pattern to use it for the authentication keys and secrets of the Twitter API
+
+8.Made variables initialDelay and playbackStartTime final since they do not change anywhere
+
+9. Removed the declaration of targetTime in line 56 of PlaybackTwitterSource and directly returned its value
+
+10. Removed expr() method in class Parses since it just calls another method
+
+11. Renamed orexpr(), andexpr() and notexpr() in class Parser to orExpression(), andExpression() and notExpression() respectively for readability and understandability
+
+12. On line 96 of Parser turned the unneccessarily declared filter sub to an inline return statement
+
+13. On line 93 removed the unneccessary variable declaration and returned the NotFilter direcly
+
+14. In class Twitter Source, I removed the if statement in the log() method since the doLogging variable is never changed anywhere, and will therefore
+never evaluate to false, so this if statement will always be evaluated to true. I was contemplating deleting the method log() altogether since it is 
+never used, but ultimately decided against it. Also removed the doLogging since it is never accessed other than in the log() method.
+
+15. In class Application, in line 62, I commented out the twitterSource.getFilterTerms(); line since it just returns a list that is never used.
+
+16. In class Application, in line 57 and 58, I commented both lines out and instead of declaring a variable, applied the changes in one line.
+
+17. In class Application, in lines 201-203, I removed the unnecessary variable declarations and setVisibility() based on checkbox selection in one line in 205
+
+18. In class Application, I represented lines 221 and 222 as a single line in 224, since the variable declaration is unnecessary
+
+19. In class Application, several lines in line 94 that did UI initialization, I extracted them into a method in order to make it more readable and understandable.
+
+20. In class Application, line 128, I used Extract Method refactoring to set up a mouse hover as a separate method called mouseHoverListener() for readability and 
+easier understanding 
+
+21. Class Application: Renamed HashSet in line 76 from "ans" to "terms" for understandability
+
+22. Class NewQueryPanel: Renamed GridBagContstraints object from "c" to "constraints" for readability and understandability
+
+23. Class ContentPanel:  Renamed GridBagContstraints object from "c" to "constraints" for readability and understandability
+
+24.Class ObjectSource: In line 27, I collapse the two different catch statements together since they do the same thing
+
+25. Class ObjectSource, I make File object file into a final variable since it never changes after initialization
+
+26. Class ObjectSource: I rename ObjectInputStream object from "instream" to "inStream" for readability
+
+27. Class ObjecSink: I rename ObjectOutputStream object from "outstream" to "outStream" for readability
+
+28. Moved class Parser from the package "filters" to "util" since it didn't really make sense with the other filter classes and Filter interface 
+
+29. Moved class Scanner from the package "filters" to "util" since it didn't really make sense with the other filter classes and Filter interface 
+
+30. Moved class SyntaxError from the package "filters" to "util" since it didn't really make sense with the other filter classes and Filter interface 
